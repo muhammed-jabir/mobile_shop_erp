@@ -16,6 +16,7 @@
     ],
 
     'data': [
+        'security/security_group.xml',
         'security/ir.model.access.csv',
         'data/sequences.xml',
         'views/product_template_views.xml',
@@ -30,6 +31,7 @@
 
     'assets': {
         'web.assets_backend': [
+            'mobile_shop_erp/static/src/css/theme.css',
             'web/static/lib/Chart/Chart.js',
             'mobile_shop_erp/static/src/js/dashboard.js',
             'mobile_shop_erp/static/src/xml/dashboard.xml',

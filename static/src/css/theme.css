@@ -1,0 +1,11 @@
+:root {
+    --o-brand-primary: #1a73e8;
+}
+
+.o_main_navbar {
+    background-color: #1a73e8 !important;
+}
+
+.o_kanban_record_title, .oe_kanban_bottom_left {
+    color: #1a73e8;
+}

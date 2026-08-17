@@ -67,4 +67,12 @@
         action="mobile_shop_cash_flow_action"
         sequence="30"/>
 
+    <menuitem
+        id="mobile_shop_cash_flow_menu"
+        name="Daily Cash Flow"
+        parent="mobile_shop_root_menu"
+        action="mobile_shop_cash_flow_action"
+        groups="mobile_shop_erp.group_mobile_shop_owner"
+        sequence="30"/>
+
 </odoo>
