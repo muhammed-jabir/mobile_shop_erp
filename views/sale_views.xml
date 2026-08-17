@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="mobile_shop_sale_tree" model="ir.ui.view">
+        <field name="name">mobile.shop.sale.tree</field>
+        <field name="model">mobile.shop.sale</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="product_id"/>
+                <field name="sale_price"/>
+                <field name="payment_method"/>
+                <field name="sale_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mobile_shop_sale_form" model="ir.ui.view">
+        <field name="name">mobile.shop.sale.form</field>
+        <field name="model">mobile.shop.sale</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_confirm"
+                            string="Confirm Sale"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state == 'confirmed'"/>
+                    <button name="%(action_report_mobile_shop_sale)d"
+                            string="Print Receipt"
+                            type="action"
+                            invisible="state != 'confirmed'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="customer_id"/>
+                            <field name="device_id"/>
+                            <field name="product_id"/>
+                        </group>
+                        <group>
+                            <field name="sale_price"/>
+                            <field name="payment_method"/>
+                            <field name="sale_date"/>
+                        </group>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="mobile_shop_sale_action" model="ir.actions.act_window">
+        <field name="name">Billing</field>
+        <field name="res_model">mobile.shop.sale</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="mobile_shop_sale_menu"
+        name="Billing"
+        parent="mobile_shop_root_menu"
+        action="mobile_shop_sale_action"
+        sequence="20"/>
+
+</odoo>

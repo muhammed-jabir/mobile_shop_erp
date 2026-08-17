@@ -1,1 +1,1 @@
-from . import mobile_device,product_template
+from . import mobile_device,product_template,sale

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_report_mobile_shop_sale" model="ir.actions.report">
+        <field name="name">Sale Receipt</field>
+        <field name="model">mobile.shop.sale</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">mobile_shop_erp.report_sale_receipt</field>
+        <field name="report_file">mobile_shop_erp.report_sale_receipt</field>
+        <field name="binding_model_id" ref="model_mobile_shop_sale"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_sale_receipt">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.basic_layout">
+                    <div class="page">
+                        <h2>Sale Receipt</h2>
+                        <p>
+                            <strong>Bill No:</strong> <span t-esc="doc.name"/><br/>
+                            <strong>Date:</strong> <span t-esc="doc.sale_date"/>
+                        </p>
+                        <table class="table table-sm" style="margin-top: 20px;">
+                            <tr>
+                                <td><strong>Customer</strong></td>
+                                <td><span t-esc="doc.customer_id.name"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Product</strong></td>
+                                <td><span t-esc="doc.product_id.name"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>IMEI 1</strong></td>
+                                <td><span t-esc="doc.device_id.imei_1"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Payment Method</strong></td>
+                                <td><span t-esc="doc.payment_method"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sale Price</strong></td>
+                                <td><span t-esc="doc.sale_price"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

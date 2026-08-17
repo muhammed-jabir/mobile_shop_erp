@@ -20,6 +20,8 @@
         'data/sequences.xml',
         'views/mobile_devices_views.xml',
         'views/product_template_views.xml',
+        'views/sale_views.xml',
+        'reports/sale_reports.xml',
     ],
 
     'installable': True,
