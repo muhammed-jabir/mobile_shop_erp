@@ -103,6 +103,38 @@ class MobileDevice(models.Model):
                 ) or 'New'
         return super().create(vals_list)
 
+    @staticmethod
+    def _luhn_checksum(number):
+        digits = [int(d) for d in number]
+        odd_digits = digits[-1::-2]
+        even_digits = digits[-2::-2]
+        total = sum(odd_digits)
+        for d in even_digits:
+            total += sum(divmod(d * 2, 10))
+        return total % 10
+
+    @api.constrains('imei_1', 'imei_2')
+    def _check_imei_format(self):
+        for record in self:
+            for field_name, value in (('IMEI 1', record.imei_1), ('IMEI 2', record.imei_2)):
+                if not value:
+                    continue
+
+                if not value.isdigit():
+                    raise ValidationError(
+                        f'{field_name} must contain digits only.'
+                    )
+
+                if len(value) != 15:
+                    raise ValidationError(
+                        f'{field_name} must contain exactly 15 digits.'
+                    )
+
+                if self._luhn_checksum(value) != 0:
+                    raise ValidationError(
+                        f'{field_name} is not a valid IMEI (checksum failed).'
+                    )
+
     @api.constrains('imei_1', 'imei_2')
     def _check_imei_unique(self):
         for record in self:
