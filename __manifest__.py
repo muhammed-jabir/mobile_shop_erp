@@ -17,6 +17,7 @@
 
     'data': [
         'security/ir.model.access.csv',
+        'data/sequences.xml',
         'views/mobile_devices_views.xml',
     ],
 
