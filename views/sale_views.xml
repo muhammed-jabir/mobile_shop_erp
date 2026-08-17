@@ -5,11 +5,13 @@
         <field name="name">mobile.shop.sale.tree</field>
         <field name="model">mobile.shop.sale</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree decoration-success="state == 'confirmed'"
+                  decoration-muted="state == 'draft'">
                 <field name="name"/>
                 <field name="customer_id"/>
                 <field name="product_id"/>
-                <field name="sale_price"/>
+                <field name="sale_price" widget="monetary"/>
+                <field name="currency_id" invisible="1"/>
                 <field name="payment_method"/>
                 <field name="sale_date"/>
                 <field name="state"/>

@@ -12,6 +12,12 @@ class MobileDevice(models.Model):
         ('imei_2_unique', 'unique(imei_2)', 'IMEI 2 already exists in the system.'),
     ]
 
+    currency_id = fields.Many2one(
+        'res.currency',
+        string='Currency',
+        default=lambda self: self.env.company.currency_id,
+    )
+
     name = fields.Char(
         string='Device Reference',
         required=True,
@@ -92,6 +98,8 @@ class MobileDevice(models.Model):
     notes = fields.Text(
         string='Notes',
     )
+
+
 
     @api.model_create_multi
     def create(self, vals_list):

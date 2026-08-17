@@ -4,7 +4,7 @@
 
     <!-- LIST VIEW -->
 
-    <record id="mobile_shop_device_tree" model="ir.ui.view">
+   <record id="mobile_shop_device_tree" model="ir.ui.view">
 
         <field name="name">mobile.shop.device.tree</field>
 
@@ -12,7 +12,10 @@
 
         <field name="arch" type="xml">
 
-            <tree>
+            <tree decoration-success="state == 'available'"
+                  decoration-danger="state == 'sold'"
+                  decoration-warning="state == 'repair'"
+                  decoration-muted="state == 'returned'">
 
                 <field name="name"/>
                 <field name="product_id"/>
@@ -20,8 +23,9 @@
                 <field name="imei_2"/>
                 <field name="supplier_id"/>
                 <field name="customer_id"/>
-                <field name="purchase_price"/>
-                <field name="sale_price"/>
+                <field name="purchase_price" widget="monetary"/>
+                <field name="sale_price" widget="monetary"/>
+                <field name="currency_id" invisible="1"/>
                 <field name="state"/>
 
             </tree>
