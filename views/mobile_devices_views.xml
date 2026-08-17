@@ -146,6 +146,75 @@
     </record>
 
 
+    <!-- SEARCH VIEW -->
+
+    <record id="mobile_shop_device_search" model="ir.ui.view">
+        <field name="name">mobile.shop.device.search</field>
+        <field name="model">mobile.shop.device</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="imei_1"/>
+                <field name="supplier_id"/>
+                <field name="customer_id"/>
+
+                <filter string="Available" name="filter_available"
+                        domain="[('state', '=', 'available')]"/>
+                <filter string="Sold" name="filter_sold"
+                        domain="[('state', '=', 'sold')]"/>
+                <filter string="Under Repair" name="filter_repair"
+                        domain="[('state', '=', 'repair')]"/>
+                <filter string="Returned" name="filter_returned"
+                        domain="[('state', '=', 'returned')]"/>
+
+                <group expand="0" string="Group By">
+                    <filter string="Product" name="group_by_product"
+                            context="{'group_by': 'product_id'}"/>
+                    <filter string="Status" name="group_by_state"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Supplier" name="group_by_supplier"
+                            context="{'group_by': 'supplier_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <!-- STOCK STATUS ACTION -->
+
+    <record id="mobile_shop_stock_status_action" model="ir.actions.act_window">
+        <field name="name">Stock Status</field>
+        <field name="res_model">mobile.shop.device</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="mobile_shop_device_search"/>
+        <field name="context">{'search_default_group_by_product': 1}</field>
+    </record>
+
+    <record id="mobile_shop_device_action"
+            model="ir.actions.act_window">
+
+        <field name="name">Mobile Devices</field>
+
+        <field name="res_model">mobile.shop.device</field>
+
+        <field name="view_mode">tree,form</field>
+
+        <field name="search_view_id" ref="mobile_shop_device_search"/>
+
+    </record>
+
+
+    <!-- MENU -->
+
+    <menuitem
+        id="mobile_shop_stock_status_menu"
+        name="Stock Status"
+        parent="mobile_shop_root_menu"
+        action="mobile_shop_stock_status_action"
+        sequence="15"/>
+
+
     <!-- MENU -->
 
     <menuitem

@@ -23,15 +23,15 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="action_confirm"
-                            string="Confirm Sale"
-                            type="object"
-                            class="oe_highlight"
-                            invisible="state == 'confirmed'"/>
-                    <button name="%(action_report_mobile_shop_sale)d"
-                            string="Print Receipt"
-                            type="action"
-                            invisible="state != 'confirmed'"/>
+                  <button name="action_confirm"
+        string="Confirm Sale"
+        type="object"
+        class="oe_highlight"
+        attrs="{'invisible': [('state', '=', 'confirmed')]}"/>
+<button name="%(action_report_mobile_shop_sale)d"
+        string="Print Receipt"
+        type="action"
+        attrs="{'invisible': [('state', '!=', 'confirmed')]}"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
