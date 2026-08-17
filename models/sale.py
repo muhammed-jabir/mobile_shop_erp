@@ -109,3 +109,13 @@ class MobileShopSale(models.Model):
             })
 
             record.state = 'confirmed'
+
+    def action_view_device(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Device',
+            'res_model': 'mobile.shop.device',
+            'view_mode': 'form',
+            'res_id': self.device_id.id,
+        }

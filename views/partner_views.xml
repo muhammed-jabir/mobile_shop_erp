@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_partner_mobile_shop_button" model="ir.ui.view">
+        <field name="name">res.partner.mobile.shop.button</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_mobile_shop_sales"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-shopping-cart"
+                        attrs="{'invisible': [('mobile_shop_sale_count', '=', 0)]}">
+                    <field name="mobile_shop_sale_count" widget="statinfo" string="Purchases"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

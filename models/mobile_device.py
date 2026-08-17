@@ -74,6 +74,17 @@ class MobileDevice(models.Model):
     sale_price = fields.Float(
         string='Sale Price',
     )
+    sale_id = fields.Many2one(
+        'mobile.shop.sale',
+        string='Sale',
+        compute='_compute_sale_id',
+    )
+
+    sale_count = fields.Integer(
+        string='Sale Count',
+        compute='_compute_sale_id',
+    )
+
 
     state = fields.Selection(
         [
@@ -98,6 +109,26 @@ class MobileDevice(models.Model):
     notes = fields.Text(
         string='Notes',
     )
+
+    @api.depends('state')
+    def _compute_sale_id(self):
+        for record in self:
+            sale = self.env['mobile.shop.sale'].search([
+                ('device_id', '=', record.id),
+                ('state', '=', 'confirmed'),
+            ], limit=1)
+            record.sale_id = sale.id if sale else False
+            record.sale_count = 1 if sale else 0
+
+    def action_view_sale(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Sale',
+            'res_model': 'mobile.shop.sale',
+            'view_mode': 'form',
+            'res_id': self.sale_id.id,
+        }
 
 
 

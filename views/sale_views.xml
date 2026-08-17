@@ -19,24 +19,75 @@
         </field>
     </record>
 
+    <record id="mobile_shop_sale_kanban" model="ir.ui.view">
+        <field name="name">mobile.shop.sale.kanban</field>
+        <field name="model">mobile.shop.sale</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile_sales">
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="product_id"/>
+                <field name="sale_price"/>
+                <field name="currency_id"/>
+                <field name="payment_method"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click o_kanban_record #{record.state.raw_value === 'confirmed' ? 'border-left border-success' : 'border-left border-secondary'}"
+                             style="border-left-width: 4px; padding: 10px;">
+                            <div class="o_kanban_record_top">
+                                <strong class="o_kanban_record_title">
+                                    <field name="name"/>
+                                </strong>
+                            </div>
+                            <div class="o_kanban_record_body">
+                                <field name="customer_id"/><br/>
+                                <field name="product_id"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <div class="oe_kanban_bottom_left">
+                                    <field name="sale_price" widget="monetary"/>
+                                </div>
+                                <div class="oe_kanban_bottom_right">
+                                    <field name="payment_method" widget="label_selection"
+                                           options="{'classes': {'cash': 'success', 'upi': 'info', 'bank': 'primary', 'card': 'primary', 'credit': 'warning'}}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
     <record id="mobile_shop_sale_form" model="ir.ui.view">
         <field name="name">mobile.shop.sale.form</field>
         <field name="model">mobile.shop.sale</field>
         <field name="arch" type="xml">
             <form>
                 <header>
-                  <button name="action_confirm"
-        string="Confirm Sale"
-        type="object"
-        class="oe_highlight"
-        attrs="{'invisible': [('state', '=', 'confirmed')]}"/>
-<button name="%(action_report_mobile_shop_sale)d"
-        string="Print Receipt"
-        type="action"
-        attrs="{'invisible': [('state', '!=', 'confirmed')]}"/>
+                    <button name="action_confirm"
+                            string="Confirm Sale"
+                            type="object"
+                            class="oe_highlight"
+                            attrs="{'invisible': [('state', '=', 'confirmed')]}"/>
+                    <button name="%(action_report_mobile_shop_sale)d"
+                            string="Print Receipt"
+                            type="action"
+                            attrs="{'invisible': [('state', '!=', 'confirmed')]}"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_device"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-mobile">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Device</span>
+                            </div>
+                        </button>
+                    </div>
                     <div class="oe_title">
                         <h1><field name="name"/></h1>
                     </div>
@@ -47,7 +98,8 @@
                             <field name="product_id"/>
                         </group>
                         <group>
-                            <field name="sale_price"/>
+                            <field name="sale_price" widget="monetary"/>
+                            <field name="currency_id" invisible="1"/>
                             <field name="payment_method"/>
                             <field name="sale_date"/>
                         </group>
@@ -63,14 +115,13 @@
     <record id="mobile_shop_sale_action" model="ir.actions.act_window">
         <field name="name">Billing</field>
         <field name="res_model">mobile.shop.sale</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">kanban,tree,form</field>
     </record>
 
-    <menuitem
-        id="mobile_shop_sale_menu"
-        name="Billing"
-        parent="mobile_shop_root_menu"
-        action="mobile_shop_sale_action"
-        sequence="20"/>
+    <menuitem id="mobile_shop_sale_menu"
+              name="Billing"
+              parent="mobile_shop_root_menu"
+              action="mobile_shop_sale_action"
+              sequence="20"/>
 
 </odoo>

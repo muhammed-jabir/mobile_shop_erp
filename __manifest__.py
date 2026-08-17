@@ -24,6 +24,7 @@
         'views/sale_views.xml',
         'views/expense_views.xml',
         'views/cash_flow_views.xml',
+        'views/partner_views.xml',
     ],
 
     'installable': True,
