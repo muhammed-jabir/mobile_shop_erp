@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="mobile_shop_expense_tree" model="ir.ui.view">
+        <field name="name">mobile.shop.expense.tree</field>
+        <field name="model">mobile.shop.expense</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="date"/>
+                <field name="description"/>
+                <field name="amount"/>
+                <field name="payment_method"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mobile_shop_expense_action" model="ir.actions.act_window">
+        <field name="name">Expenses</field>
+        <field name="res_model">mobile.shop.expense</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="mobile_shop_expense_menu"
+        name="Expenses"
+        parent="mobile_shop_root_menu"
+        action="mobile_shop_expense_action"
+        sequence="25"/>
+
+</odoo>

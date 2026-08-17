@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="mobile_shop_cash_flow_tree" model="ir.ui.view">
+        <field name="name">mobile.shop.cash.flow.tree</field>
+        <field name="model">mobile.shop.cash.flow</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date"/>
+                <field name="opening_balance"/>
+                <field name="total_sales"/>
+                <field name="total_expenses"/>
+                <field name="closing_balance"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mobile_shop_cash_flow_form" model="ir.ui.view">
+        <field name="name">mobile.shop.cash.flow.form</field>
+        <field name="model">mobile.shop.cash.flow</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="date"/></h1>
+                    </div>
+
+                    <group>
+                        <field name="opening_balance"/>
+                    </group>
+
+                    <group string="Sales by Payment Method">
+                        <field name="sales_cash"/>
+                        <field name="sales_upi"/>
+                        <field name="sales_bank"/>
+                        <field name="sales_card"/>
+                        <field name="sales_credit"/>
+                        <field name="total_sales"/>
+                    </group>
+
+                    <group string="Expenses by Payment Method">
+                        <field name="expense_cash"/>
+                        <field name="expense_upi"/>
+                        <field name="expense_bank"/>
+                        <field name="expense_card"/>
+                        <field name="total_expenses"/>
+                    </group>
+
+                    <group>
+                        <field name="closing_balance"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="mobile_shop_cash_flow_action" model="ir.actions.act_window">
+        <field name="name">Daily Cash Flow</field>
+        <field name="res_model">mobile.shop.cash.flow</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="mobile_shop_cash_flow_menu"
+        name="Daily Cash Flow"
+        parent="mobile_shop_root_menu"
+        action="mobile_shop_cash_flow_action"
+        sequence="30"/>
+
+</odoo>
