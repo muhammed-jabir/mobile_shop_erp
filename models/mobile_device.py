@@ -7,6 +7,11 @@ class MobileDevice(models.Model):
     _description = 'Mobile Device'
     _order = 'id desc'
 
+    _sql_constraints = [
+        ('imei_1_unique', 'unique(imei_1)', 'IMEI 1 already exists in the system.'),
+        ('imei_2_unique', 'unique(imei_2)', 'IMEI 2 already exists in the system.'),
+    ]
+
     name = fields.Char(
         string='Device Reference',
         required=True,
@@ -89,9 +94,23 @@ class MobileDevice(models.Model):
         string='Notes',
     )
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('name', 'New') == 'New':
+                vals['name'] = self.env['ir.sequence'].next_by_code(
+                    'mobile.shop.device'
+                ) or 'New'
+        return super().create(vals_list)
+
     @api.constrains('imei_1', 'imei_2')
     def _check_imei_unique(self):
         for record in self:
+
+            if record.imei_1 and record.imei_2 and record.imei_1 == record.imei_2:
+                raise ValidationError(
+                    'IMEI 1 and IMEI 2 cannot be identical.'
+                )
 
             if record.imei_1:
                 duplicate = self.search([
