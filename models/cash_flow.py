@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+from datetime import datetime, time
 
 
 class MobileShopCashFlow(models.Model):
@@ -72,16 +73,25 @@ class MobileShopCashFlow(models.Model):
     @api.depends('date')
     def _compute_sales_by_method(self):
         for record in self:
-            sales = self.env['mobile.shop.sale'].search([
-                ('sale_date', '=', record.date),
+            if not record.date:
+                record.sales_cash = record.sales_upi = record.sales_bank = 0.0
+                record.sales_card = record.sales_credit = record.total_sales = 0.0
+                continue
+
+            day_start = datetime.combine(record.date, time.min)
+            day_end = datetime.combine(record.date, time.max)
+
+            payments = self.env['mobile.shop.payment'].search([
+                ('payment_date', '>=', day_start),
+                ('payment_date', '<=', day_end),
                 ('state', '=', 'confirmed'),
             ])
-            record.sales_cash = sum(sales.filtered(lambda s: s.payment_method == 'cash').mapped('sale_price'))
-            record.sales_upi = sum(sales.filtered(lambda s: s.payment_method == 'upi').mapped('sale_price'))
-            record.sales_bank = sum(sales.filtered(lambda s: s.payment_method == 'bank').mapped('sale_price'))
-            record.sales_card = sum(sales.filtered(lambda s: s.payment_method == 'card').mapped('sale_price'))
-            record.sales_credit = sum(sales.filtered(lambda s: s.payment_method == 'credit').mapped('sale_price'))
-            record.total_sales = sum(sales.mapped('sale_price'))
+            record.sales_cash = sum(payments.filtered(lambda p: p.payment_method == 'cash').mapped('amount'))
+            record.sales_upi = sum(payments.filtered(lambda p: p.payment_method == 'upi').mapped('amount'))
+            record.sales_bank = sum(payments.filtered(lambda p: p.payment_method == 'bank').mapped('amount'))
+            record.sales_card = sum(payments.filtered(lambda p: p.payment_method == 'card').mapped('amount'))
+            record.sales_credit = sum(payments.filtered(lambda p: p.payment_method == 'credit').mapped('amount'))
+            record.total_sales = sum(payments.mapped('amount'))
 
     @api.depends('date')
     def _compute_expenses_by_method(self):

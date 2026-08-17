@@ -3,8 +3,12 @@ access_mobile_shop_device_staff,mobile.shop.device.staff,model_mobile_shop_devic
 access_mobile_shop_device_owner,mobile.shop.device.owner,model_mobile_shop_device,group_mobile_shop_owner,1,1,1,1
 access_mobile_shop_sale_staff,mobile.shop.sale.staff,model_mobile_shop_sale,group_mobile_shop_staff,1,1,1,0
 access_mobile_shop_sale_owner,mobile.shop.sale.owner,model_mobile_shop_sale,group_mobile_shop_owner,1,1,1,1
+access_mobile_shop_sale_line_staff,mobile.shop.sale.line.staff,model_mobile_shop_sale_line,group_mobile_shop_staff,1,1,1,0
+access_mobile_shop_sale_line_owner,mobile.shop.sale.line.owner,model_mobile_shop_sale_line,group_mobile_shop_owner,1,1,1,1
 access_mobile_shop_expense_staff,mobile.shop.expense.staff,model_mobile_shop_expense,group_mobile_shop_staff,1,1,1,0
 access_mobile_shop_expense_owner,mobile.shop.expense.owner,model_mobile_shop_expense,group_mobile_shop_owner,1,1,1,1
 access_mobile_shop_cash_flow_owner,mobile.shop.cash.flow.owner,model_mobile_shop_cash_flow,group_mobile_shop_owner,1,1,1,1
 access_mobile_shop_dashboard_staff,mobile.shop.dashboard.staff,model_mobile_shop_dashboard,group_mobile_shop_staff,1,0,0,0
 access_mobile_shop_dashboard_owner,mobile.shop.dashboard.owner,model_mobile_shop_dashboard,group_mobile_shop_owner,1,0,0,0
+access_mobile_shop_payment_staff,mobile.shop.payment.staff,model_mobile_shop_payment,group_mobile_shop_staff,1,1,1,0
+access_mobile_shop_payment_owner,mobile.shop.payment.owner,model_mobile_shop_payment,group_mobile_shop_owner,1,1,1,1

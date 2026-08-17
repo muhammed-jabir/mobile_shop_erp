@@ -16,7 +16,7 @@ class MobileShopDashboard(models.AbstractModel):
         today_sales = sum(sale_model.search([
             ('sale_date', '=', today),
             ('state', '=', 'confirmed'),
-        ]).mapped('sale_price'))
+        ]).mapped('total_amount'))
 
         today_expenses = sum(expense_model.search([
             ('date', '=', today),
@@ -35,7 +35,7 @@ class MobileShopDashboard(models.AbstractModel):
             day_total = sum(sale_model.search([
                 ('sale_date', '=', day),
                 ('state', '=', 'confirmed'),
-            ]).mapped('sale_price'))
+            ]).mapped('total_amount'))
             trend.append({
                 'date': day.strftime('%d %b'),
                 'total': day_total,

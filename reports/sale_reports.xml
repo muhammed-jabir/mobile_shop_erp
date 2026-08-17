@@ -19,29 +19,78 @@
                         <h2>Sale Receipt</h2>
                         <p>
                             <strong>Bill No:</strong> <span t-esc="doc.name"/><br/>
-                            <strong>Date:</strong> <span t-esc="doc.sale_date"/>
+                            <strong>Date:</strong> <span t-esc="doc.sale_date"/><br/>
+                            <strong>Customer:</strong> <span t-esc="doc.customer_id.name"/>
                         </p>
+
                         <table class="table table-sm" style="margin-top: 20px;">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>IMEI</th>
+                                    <th class="text-right">Qty</th>
+                                    <th class="text-right">Unit Price</th>
+                                    <th class="text-right">Discount</th>
+                                    <th class="text-right">Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="doc.line_ids" t-as="line">
+                                    <td><span t-esc="line.product_id.name"/></td>
+                                    <td><span t-esc="line.device_id.imei_1"/></td>
+                                    <td class="text-right"><span t-esc="line.quantity"/></td>
+                                    <td class="text-right"><span t-esc="line.unit_price" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/></td>
+                                    <td class="text-right"><span t-esc="line.discount"/>%</td>
+                                    <td class="text-right"><span t-esc="line.subtotal" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="table table-sm" style="margin-top: 10px; width: 40%; margin-left: auto;">
                             <tr>
-                                <td><strong>Customer</strong></td>
-                                <td><span t-esc="doc.customer_id.name"/></td>
+                                <td><strong>Subtotal</strong></td>
+                                <td class="text-right"><span t-esc="doc.subtotal" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/></td>
                             </tr>
                             <tr>
-                                <td><strong>Product</strong></td>
-                                <td><span t-esc="doc.product_id.name"/></td>
+                                <td><strong>Discount</strong></td>
+                                <td class="text-right"><span t-esc="doc.discount_amount" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/></td>
                             </tr>
                             <tr>
-                                <td><strong>IMEI 1</strong></td>
-                                <td><span t-esc="doc.device_id.imei_1"/></td>
+                                <td><strong>Total</strong></td>
+                                <td class="text-right"><span t-esc="doc.total_amount" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/></td>
                             </tr>
                             <tr>
-                                <td><strong>Payment Method</strong></td>
-                                <td><span t-esc="doc.payment_method"/></td>
+                                <td><strong>Paid</strong></td>
+                                <td class="text-right"><span t-esc="doc.amount_paid" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/></td>
                             </tr>
                             <tr>
-                                <td><strong>Sale Price</strong></td>
-                                <td><span t-esc="doc.sale_price"/></td>
+                                <td><strong>Due</strong></td>
+                                <td class="text-right"><span t-esc="doc.amount_due" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/></td>
                             </tr>
+                            <tr>
+                                <td><strong>Payment Status</strong></td>
+                                <td class="text-right"><span t-esc="doc.payment_status"/></td>
+                            </tr>
+                        </table>
+
+                        <h4 style="margin-top: 20px;">Payments</h4>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Method</th>
+                                    <th>Reference</th>
+                                    <th class="text-right">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="doc.payment_ids" t-as="payment">
+                                    <td><span t-esc="payment.payment_date"/></td>
+                                    <td><span t-esc="payment.payment_method"/></td>
+                                    <td><span t-esc="payment.reference"/></td>
+                                    <td class="text-right"><span t-esc="payment.amount" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/></td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </t>
