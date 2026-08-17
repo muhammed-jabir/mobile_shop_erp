@@ -1,1 +1,1 @@
-from . import mobile_device,product_template,sale,expense,cash_flow,partner
+from . import mobile_device,product_template,sale,expense,cash_flow,partner,dashboard

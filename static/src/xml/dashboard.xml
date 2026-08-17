@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="mobile_shop_erp.Dashboard" owl="1">
+        <div class="o_mobile_shop_dashboard p-4">
+            <h2>Mobile Shop Dashboard</h2>
+            <div class="row" t-if="state.data">
+                <div class="col-3">
+                    <div class="card p-3 mb-3">
+                        <span>Today's Sales</span>
+                        <h3><t t-esc="state.data.today_sales.toFixed(2)"/></h3>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card p-3 mb-3">
+                        <span>Today's Expenses</span>
+                        <h3><t t-esc="state.data.today_expenses.toFixed(2)"/></h3>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card p-3 mb-3">
+                        <span>Available Stock</span>
+                        <h3><t t-esc="state.data.stock_counts.available"/></h3>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card p-3 mb-3">
+                        <span>Pending Repairs</span>
+                        <h3><t t-esc="state.data.stock_counts.repair"/></h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row" t-if="state.data">
+                <div class="col-6">
+                    <canvas t-ref="stockChart"/>
+                </div>
+                <div class="col-6">
+                    <canvas t-ref="trendChart"/>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

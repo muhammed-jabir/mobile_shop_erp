@@ -3,3 +3,4 @@ access_mobile_shop_device_user,mobile.shop.device.user,model_mobile_shop_device,
 access_mobile_shop_sale_user,mobile.shop.sale.user,model_mobile_shop_sale,base.group_user,1,1,1,0
 access_mobile_shop_expense_user,mobile.shop.expense.user,model_mobile_shop_expense,base.group_user,1,1,1,0
 access_mobile_shop_cash_flow_user,mobile.shop.cash.flow.user,model_mobile_shop_cash_flow,base.group_user,1,1,1,0
+access_mobile_shop_dashboard_user,mobile.shop.dashboard.user,model_mobile_shop_dashboard,base.group_user,1,0,0,0

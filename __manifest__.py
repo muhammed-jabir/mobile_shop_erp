@@ -25,7 +25,16 @@
         'views/expense_views.xml',
         'views/cash_flow_views.xml',
         'views/partner_views.xml',
+        'views/dashboard_views.xml',
     ],
+
+    'assets': {
+        'web.assets_backend': [
+            'web/static/lib/Chart/Chart.js',
+            'mobile_shop_erp/static/src/js/dashboard.js',
+            'mobile_shop_erp/static/src/xml/dashboard.xml',
+        ],
+    },
 
     'installable': True,
     'application': True,
