@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_template_shop_fields_form" model="ir.ui.view">
+        <field name="name">product.template.shop.fields.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/notebook" position="inside">
+                <page string="Mobile Shop Info">
+                    <group>
+                        <group string="Classification">
+                            <field name="shop_product_type"/>
+                            <field name="shop_brand"/>
+                            <field name="shop_model_name"/>
+                        </group>
+                        <group string="Specifications">
+                            <field name="shop_ram"/>
+                            <field name="shop_storage"/>
+                            <field name="shop_color"/>
+                            <field name="shop_warranty_period"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -19,6 +19,7 @@
         'security/ir.model.access.csv',
         'data/sequences.xml',
         'views/mobile_devices_views.xml',
+        'views/product_template_views.xml',
     ],
 
     'installable': True,

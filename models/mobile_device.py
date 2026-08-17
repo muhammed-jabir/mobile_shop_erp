@@ -28,7 +28,6 @@ class MobileDevice(models.Model):
 
     imei_1 = fields.Char(
         string='IMEI 1',
-        required=True,
         copy=False,
     )
 
@@ -165,3 +164,11 @@ class MobileDevice(models.Model):
                     raise ValidationError(
                         'IMEI 2 already exists.'
                     )
+
+    @api.constrains('product_id', 'imei_1')
+    def _check_imei_required_for_phones(self):
+        for record in self:
+            if record.product_id.shop_product_type == 'mobile_phone' and not record.imei_1:
+                raise ValidationError(
+                    'IMEI 1 is required for mobile phone products.'
+                )
